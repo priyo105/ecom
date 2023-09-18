@@ -1,0 +1,47 @@
+
+
+project setup : create a folder called backend
+
+
+
+first command : npm init
+
+create index.js
+
+next, install nodemon  npm i nodempn
+change the entry point of the application ---- nodemon index.js inside script of package.json
+
+
+create index.js
+
+next install express, npm i express
+
+next install .env
+
+Add the line to parse JSON from frontend, app.use(express.json())
+
+Add the Library Morgan !! (Its a api request logger library),use the library as middleware
+
+Install mongoose
+
+Install Mongo Db
+install cors...npm i cors
+
+Then Connect with Atlas.....
+
+
+
+
+
+Database Design Analysis
+
+The project will have following collections....
+
+1.Products
+
+2.Orders
+3.Category
+4.Users
+5.OrderItems
+
+
