@@ -45,3 +45,13 @@ The project will have following collections....
 5.OrderItems
 
 
+#Authintication main features----
+
+- Users Model and Schema
+- Register a new User api
+- Hashing the user password
+- get user and list of users but without the passwords
+- update user data with/without the password...
+- Protecting the API- Authintication with JWT token
+-Login a User REST API and creating a token
+-Authentication Error Handeling 

@@ -5,7 +5,7 @@ const {Product}=require("../models/products.js");
 const { Category } = require("../models/category.js");
 
 
-
+//create 
 router.post("/product/v1/create",async(req,res)=>{
 
     const category=await Category.findById(req.body.category);
@@ -66,6 +66,50 @@ router.delete("/products/:id",async (req,res)=>{
   res.send(deletedProduct)
 
 })
+
+//for stats and dashboard
+router.get('/products/get/count',async (req,res)=>{
+    const productCount=await Product.countDocuments();
+    if(!productCount){res.status(500).json({success:"false"})}
+    res.send({count:productCount})
+
+})
+
+
+//get featured Products
+router.get('/products/get/featuredproducts/?:count',async(req,res)=>{
+    const count=req.params.count ? req.params.count  :0
+    const featuredproducts=await Product.find({isFeatured:true}).limit(count)
+    res.send(featuredproducts)
+})
+
+
+
+//get product by category Id
+
+router.get('/products/get/productByCategoryId/:categoryId',async (req,res)=>{
+    const products=await Product.find({category:req.params.categoryId})
+    if(!products){return res.send({"message":"No Products Found"})}
+    res.send(products)
+})
+
+
+//get products by category Ids 
+
+router.get('/products/get/productsByCategoryIds', async(req,res)=>{
+    
+    // example :: localhost:4000/products/get/productsByCategoryIds?categories=2312312,12312312
+      let filter=[]
+    if(req.query.categories){
+       filter=req.query.categories.split(',')
+    }
+    const productList=await Product.find({category:filter})
+    res.status(200).send(productList)
+})
+
+
+
+
 
 
 module.exports=router;
