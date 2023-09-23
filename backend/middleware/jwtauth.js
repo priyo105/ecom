@@ -6,7 +6,7 @@ let secretKey=process.env.secret;
 const auth=jwt({
     secret: secretKey,
     algorithms: ["HS256"],
-    //algorithms: ['RS256']
+    isRevoked:isRevoked
   }).unless({
     path:[
         '/users/login',               //excludes login and registerfrom requiring token to authinticate !!
@@ -16,5 +16,13 @@ const auth=jwt({
     ],
    
   });
+
+  async function isRevoked(req,payload,done){
+    console.log(payload.payload.isAdmin);
+    if(!payload.payload.isAdmin){
+        return true
+    }
+        return false
+  }
 
   module.exports=auth;

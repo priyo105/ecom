@@ -1,9 +1,7 @@
-
 const express= require("express")
 const router=express.Router();
 const {Product}=require("../models/products.js");
 const { Category } = require("../models/category.js");
-
 
 //create 
 router.post("/product/v1/create",async(req,res)=>{
@@ -12,7 +10,6 @@ router.post("/product/v1/create",async(req,res)=>{
     if(!category){
        return res.status(400).send("Category Doesnot Exist !")
     }
-
 
     const newProduct=new Product(req.body)
      newProduct.save()

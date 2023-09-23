@@ -2,7 +2,6 @@ const express= require("express")
 const router=express.Router();
 const {Category}=require("../models/category.js")
 
-
 router.post('/v1/create',async (req,res)=>{
 
   let category=new Category(req.body);
