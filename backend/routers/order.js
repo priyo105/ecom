@@ -3,14 +3,13 @@ const router=express.Router();
 const {Order}=require("../models/Order.js");
 const { OrderItems } = require("../models/OrderItems.js");
 const { Product } = require("../models/products.js");
+const { populate } = require("dotenv");
 
 //create 
 router.post("/v1/create",async(req,res)=>{
-
-
+    
+    // we will insert in 2 tables , one is orderItems, and another is Order.
     let orderItems=req.body.orderItems;
- 
-
     let orderIds= Promise.all(
         orderItems.map(async orderitem=>{  // Looping through all orderItems and the saving each order item in OrderItems Table...       
         //checking if the product Ids are actually exists 
@@ -18,30 +17,26 @@ router.post("/v1/create",async(req,res)=>{
         if(!product){
             return res.send('invalid product ids')
         }
-
         const orderItem=new OrderItems({
             quantity:orderitem.quantity,
             product:orderitem.product  
         })
-
          await orderItem.save();
          return orderItem._id; // this will return a promise
     })
     )  
     const orderIdsCombine=await orderIds;
     console.log(orderIdsCombine)
+    
+    
+    let totalprice= await calculateTotalPrice(orderIdsCombine);
+    console.log(totalprice)
 
-    let order = new Order({
+    //saving order tables
+    let order = new Order({...req.body,
+        totalPrice:totalprice,
         orderItems: orderIdsCombine, //the concept here is important ......!!!! we are sending request orderItems  [new ObjectId("650f219ace38dfede620ce0b"), new ObjectId("650f219ace38dfede620ce09") ] to orderitems
-        shippingAddress1: req.body.shippingAddress1,
-        shippingAddress2: req.body.shippingAddress2,
-        city: req.body.city,
-        zip: req.body.zip,
-        country: req.body.country,
-        phone: req.body.phone,
-        status: req.body.status,
-        totalPrice: 0,
-        user: req.body.user,
+ 
     })
     order = await order.save();
     if(!order)
@@ -50,9 +45,107 @@ router.post("/v1/create",async(req,res)=>{
     res.send(order);
 })
 
+
+const calculateTotalPrice=async(orderitems)=>{
+  let totalPrice=0;
+  let total=await Promise.all(
+    orderitems.map(async orderitem=>{
+             let item=await OrderItems.findById(orderitem).populate('product');
+             totalPrice= item.quantity * item.product.price;  //0+1*1000=1000
+             return totalPrice   
+  }))
+
+  console.log("zzz"+total); // output would be like this [1000,2000,3000.....]
+  
+  let sumOfAllPrices=total.reduce((x,y)=>{
+    return x+y
+  },0);
+
+  return sumOfAllPrices;
+}
+
+
+//get all orders 
+router.get('/',async(req,res)=>{
+    let orders=await Order.find({})
+                          .populate('user')
+                          .populate({path:'orderItems', populate:'product'}) // this will populate the product in order items 
+    if(!orders){
+       return  res.status(400).json({message:"There are no orders"});
+    }
+    res.status(200).json(orders)
+})
+
+
+//get Order By Id
+
+router.get('/:id',async(req,res)=>{
+    let orders=await Order.findById(req.params.id)
+                          .populate('user') 
+                          .populate({path:'orderItems', populate:'product'}) // this will populate the product in order items. 
+                          
+    if(!orders){
+       return  res.status(400).json({message:"There are no orders"});
+    }
+    res.status(200).json(orders)
+})
+
+
+//get Order By UserId
+
+router.get('/user/:id',async(req,res)=>{
+    let orders=await Order.find({user:req.params.id}).populate('user'); 
+    if(!orders){
+       return  res.status(400).json({message:"There are no orders"});
+    }
+    res.status(200).json(orders) 
+})
 module.exports=router
 
 
+//update Order Status
+
+router.put('/:id',async (req,res)=>{
+     const updatedOrder=await Order.findByIdAndUpdate(
+        req.params.id,
+        {
+            status:req.body.status
+        },
+        {new:true}
+     )
+
+     if(!updatedOrder){
+        return res.status(400).json({message:"order not found"})
+     }
+     res.status(200).json({message:"order updated !",order:updatedOrder})
+})
+
+
+//delete Order
+
+router.delete('/:id',(req,res)=>{
+  Order.findByIdAndRemove(req.params.id).then(order=>{
+     if(order){
+
+        const orderItems=order.orderItems.map(orderitem=>{
+         OrderItems.findByIdAndRemove(orderitem).then(orderitem=>{
+                console.log(orderitem+" deleted")
+            })
+        })
+
+        res.status(200).json({message:"Order Deleted"})
+     }else{
+        res.status(400).json({message:"Order Not Found !"})
+     }
+  })
+
+})
+
+
+router.delete('/',async (req, res) => {
+    let orderItems=await OrderItems.deleteMany({});
+  res.send(orderItems)
+  });
 
 
 
