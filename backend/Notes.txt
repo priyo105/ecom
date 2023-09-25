@@ -55,3 +55,8 @@ The project will have following collections....
 - Protecting the API- Authintication with JWT token
 -Login a User REST API and creating a token
 -Authentication Error Handeling 
+
+
+For File Uploads (images)--- we need to install multer
+
+npm i multer

@@ -142,10 +142,41 @@ router.delete('/:id',(req,res)=>{
 })
 
 
+
+//TRUNCATE A TABLE
 router.delete('/',async (req, res) => {
-    let orderItems=await OrderItems.deleteMany({});
+    let orderItems=await Order.deleteMany({});
   res.send(orderItems)
-  });
+});
+
+
+//Get Total Sales :::::::
+
+router.get('/get/totalSales',async(req,res)=>{
+  
+    let totalSales=await Order.aggregate(
+        [
+            { $group:{ _id:null, totalSales:{$sum:'$totalPrice'}}}
+        ]
+    )
+    
+    if(!totalSales){
+        return res.status(500).json({message:"something is wrong"})
+    }
+    
+    res.status(200).send(totalSales[0])
+
+})    
+
+
+//get Order Count
+
+router.get('/get/count',async(req,res)=>{
+  let orderCount= await Order.countDocuments();
+  res.status(200).send({count:orderCount})
+})
+
+
 
 
 

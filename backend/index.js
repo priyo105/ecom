@@ -11,9 +11,13 @@ const cors=require('cors')
 const auth=require('./middleware/jwtauth.js')
 const errorHandler=require('./middleware/errorHandle.js')
 var { expressjwt: jwt } = require("express-jwt");
+var path = require('path');
 
 //Middlewares
 //make express understand json
+
+
+app.use("/public", express.static(path.join(__dirname, 'public'))); // this line add pUblic folder to static
 app.use(express.json())
 app.use(morgan('tiny'))
 app.use(auth); // this will work as a middleware for all the routes below. 
