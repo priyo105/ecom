@@ -7,14 +7,20 @@ import {
 } from 'react-native';
 
 import ProductView from './screens/Products/ProductView';
+import Header from './Commons/Header';
+import { NativeBaseProvider } from 'native-base';
 
 function App() {
 
   return (
-    <SafeAreaView >
 
-          <ProductView />      
-    </SafeAreaView>
+    <NativeBaseProvider>
+       <SafeAreaView >
+              <Header />
+              <ProductView />      
+        </SafeAreaView> 
+    </NativeBaseProvider>
+  
   );
 }
 
