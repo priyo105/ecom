@@ -9,8 +9,8 @@ import FilteredProductView from "./FilteredProductView";
 import Banner from "../../Commons/Banner";
 import CategroiesHorizontal from "../categories/CategroiesHorizontal";
 
-export default ProductView = () => {
 
+export default ProductView = () => {
     const [products, setProduct] = useState(['ps3', 'ps4']);
     const [productFilter, setProductFilter] = useState([]);
     const [focus, setFocus] = useState();
@@ -18,12 +18,13 @@ export default ProductView = () => {
     const [categoryPressed, setCategoryPressed] = useState(false);
     const [productFilteredByCategory, setProductFilteredByCategory] = useState([]);
     const [refreshing, setRefreshing] = React.useState(false);
-
+  
+     //on swipe up refresh 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         setTimeout(() => {
             setRefreshing(false);
-            setCategoryPressed(false);
+                setCategoryPressed(false);  //we are using this state to Display Categroical product in the flatList
         }, 2000);
     }, []);
 
@@ -67,15 +68,15 @@ export default ProductView = () => {
                 </View>
 
                 {focus == false ? (<View >
-                    <Banner />
-                    <CategroiesHorizontal data={categories} onPress={(id) => {
-
-                        setCategoryPressed(true);
-                        const filteredData = products.filter(item => item.category.$oid === id);
-                        setProductFilteredByCategory(filteredData);
-
-
-                    }} />
+                   
+                    <Banner />  
+                   
+                    <CategroiesHorizontal
+                                 data={categories}
+                                 onPress={(id) => {
+                                                setCategoryPressed(true);
+                                                const filteredData = products.filter(item => item.category.$oid === id);
+                                                setProductFilteredByCategory(filteredData);}} />
 
                 </View>) : <View />}
 
@@ -84,10 +85,8 @@ export default ProductView = () => {
                 {focus == true ? (
                     <View>
                         <FilteredProductView productFilter={productFilter} />
-
                     </View>
                 ) : (
-
 
                     <FlatList
                         data={categoryPressed ? productFilteredByCategory : products}
