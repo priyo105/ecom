@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, ActivityIndicator, Text, FlatList, SafeAreaView } from "react-native"
+import { View, StyleSheet, ActivityIndicator, Text, FlatList, SafeAreaView ,RefreshControl} from "react-native"
 import data from "../../assets/products.json"
 import categoryData from "../../assets/categories.json"
 import ProductItem from "./ProductItem";
@@ -15,7 +15,17 @@ export default ProductView = () => {
     const [productFilter, setProductFilter] = useState([]);
     const [focus, setFocus] = useState();
     const [categories, setCategories] = useState([]);
-    const [active, setActive] = useState([]);
+    const [categoryPressed, setCategoryPressed] = useState(false);
+    const [productFilteredByCategory, setProductFilteredByCategory] = useState([]);
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+            setRefreshing(false);
+            setCategoryPressed(false);
+        }, 2000);
+    }, []);
 
     useEffect(() => {
         setProduct(data);
@@ -37,7 +47,9 @@ export default ProductView = () => {
 
 
     return (
-        <ScrollView>
+        <ScrollView refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
             <SafeAreaView>
                 {/* searchbar */}
                 <View style={{ marginHorizontal: 20 }}>
@@ -56,13 +68,16 @@ export default ProductView = () => {
 
                 {focus == false ? (<View >
                     <Banner />
-                    <CategroiesHorizontal data={categories} onPress={()=>{console.warn('pressed')}} />
+                    <CategroiesHorizontal data={categories} onPress={(id) => {
+
+                        setCategoryPressed(true);
+                        const filteredData = products.filter(item => item.category.$oid === id);
+                        setProductFilteredByCategory(filteredData);
+
+
+                    }} />
 
                 </View>) : <View />}
-
-
-
-
 
 
                 {/* // When Focus is True It will render the search ProductView , Other wise regular Product List View  */}
@@ -72,8 +87,10 @@ export default ProductView = () => {
 
                     </View>
                 ) : (
+
+
                     <FlatList
-                        data={products}
+                        data={categoryPressed ? productFilteredByCategory : products}
                         numColumns={2}
                         renderItem={({ item }) => <ProductItem key={item.name} product={item} />}
                         keyExtractor={item => item.name} />
