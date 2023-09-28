@@ -3,13 +3,16 @@ import React from 'react';
 import {
   SafeAreaView,
   StyleSheet,
-  FlatList
+  FlatList,
+  LogBox
 } from 'react-native';
 
 import ProductView from './screens/Products/ProductView';
 import Header from './Commons/Header';
 import { NativeBaseProvider } from 'native-base';
 
+
+// LogBox.ignoreAllLogs(true)
 function App() {
 
   return (

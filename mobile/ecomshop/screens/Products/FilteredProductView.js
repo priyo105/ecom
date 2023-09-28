@@ -2,19 +2,8 @@ import React from 'react'
 import {View,StyleSheet} from "react-native";
 import { Divider, Text ,Image} from "native-base"
 
-
-
-
-
-
-
-
-
 const FilteredProductView= (productFilter)=> {
-  
-    // console.log(productFilter)
-
-  return (
+    return (
     <View>
 
        {                
@@ -32,8 +21,6 @@ const FilteredProductView= (productFilter)=> {
               </View>
             )
         } 
-
-
     </View>
   )
 }
