@@ -1,0 +1,5 @@
+ Redux Installation Process-------
+
+
+
+ npm i redux react-redux redux-devtools-extension redux-logger redux-thunk

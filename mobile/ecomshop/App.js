@@ -19,20 +19,41 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import ProductDetailsView from './screens/Products/ProductDetailsView';
 const Tab = createMaterialBottomTabNavigator();
 
+//Redux
+
+import { Provider } from 'react-redux';
+import store from './Redux/store';
+import Cart from './screens/cart/Cart';
+import Checkout from './screens/cart/Checkout';
+// Redux
+
 function HomeStack() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" options={{headerShown:false}} component={ProductView} />
-      <Stack.Screen name="productDetails" options={{headerShown:false}} component={ProductDetailsView} />
-    </Stack.Navigator>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" options={{headerShown:false}} component={ProductView} />
+          <Stack.Screen name="productDetails" options={{headerShown:false}} component={ProductDetailsView} />
+        </Stack.Navigator>
+
   );
 }
 
+function CartStack() {
+  return (
+        <Stack.Navigator>
+          <Stack.Screen name="cart" options={{headerShown:false}} component={Cart} />
+          <Stack.Screen name="checkout" options={{headerShown:false}} component={Checkout} />
+        </Stack.Navigator>
+
+  );
+}
 
 // LogBox.ignoreAllLogs(true)
 function App() {
 
   return (
+
+    <Provider store={store}>
+
     <NavigationContainer>
       <NativeBaseProvider>
         <SafeAreaView >
@@ -65,7 +86,7 @@ function App() {
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="cart" color={'black'} size={22} /> ),}} 
             
-            component={ProductView} />
+            component={CartStack} />
 
       <Tab.Screen name="Account" options={{
             tabBarLabel: 'account',
@@ -79,7 +100,7 @@ function App() {
 
       </NativeBaseProvider>
     </NavigationContainer>
-
+   </Provider>
   );
 }
 

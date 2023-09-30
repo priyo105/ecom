@@ -9,6 +9,8 @@ import {
     Button
 } from "react-native"
 
+import {connect} from 'react-redux'
+import * as actions from '../../Redux/Actions/CartActions'
 
 
 var {width}= Dimensions.get("window");
@@ -33,7 +35,9 @@ const ProductCard=(product)=>{
                  £ {price} 
               </Text>
             <View style={{width:100,height:40,alignContent:'center',alignItems:"center",marginLeft:95,marginTop:10}}>
-                 <TouchableOpacity>
+                 <TouchableOpacity onPress={()=>{
+                     product.addItemToCart(product);
+                 }}>
                         <Text style={{fontSize:12,textAlign:"center",backgroundColor:"black",color:"white",padding:6,border:1,borderRadius:5}}>Add </Text>
                  </TouchableOpacity>
             </View>  
@@ -43,7 +47,13 @@ const ProductCard=(product)=>{
 }
 
 
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        addItemToCart: (product)=> dispatch(actions.addToCart({quantity:1,product}))
+    }
+}
 
+export default connect(null,mapDispatchToProps)(ProductCard);
 const styles=StyleSheet.create({
     container:{
         width:width/2-40,
@@ -87,4 +97,3 @@ const styles=StyleSheet.create({
     }
 })
 
-export default ProductCard;

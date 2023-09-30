@@ -5,7 +5,7 @@
   "image": "https://www.transparentpng.com/thumb/fifa-2018-transparent/nVt9uN-fifa-2018-logo-transparent.png",
   "brand": "PS3",
   "price": 250,
-  "rating": 1,
+  "rating": 4,
   "numReviews": 0,
   "isFeatured": true,
   "name": "FIFA 20",
@@ -60,9 +60,10 @@
   "numReviews": 0,
   "isFeatured": true,
   "name": "Grass Cut Machine",
-  "description": "Grass Cut Machine for garden",
+  "description":"a grass cutting machine",
+  "bigdescription": "Lush, well-manicured lawns are the hallmark of a beautiful home. To achieve that picture-perfect look, homeowners rely on the power and precision of grass cutting machines. These essential tools have evolved significantly over the years, offering versatility, efficiency, and ease of use. Whether you have a small suburban yard or a sprawling estate, there's a grass cutting machine tailored to your needs. In this guide, we'll explore the world of grass cutting machines and their benefits, helping you make an informed choice for your lawn care needs\n\n• Efficient Lawn Care: Grass cutting machines are essential tools for maintaining a pristine lawn. They simplify the process of trimming grass, saving you time and effort.\n\n• Versatile Options: These machines come in various types, including push mowers, riding mowers, and robotic mowers, catering to different lawn sizes and user preferences.\n\n• Precision Cutting: Grass cutting machines are equipped with sharp blades that ensure a precise and even cut, resulting in a well-groomed lawn.\n\n• User-Friendly: Most modern models feature user-friendly controls, making it easy for homeowners to operate them safely and effectively.\n\n• Gas-Powered or Electric: Grass cutters can be powered by gas engines or electricity, providing flexibility in terms of fuel options and environmental impact.\n\n• Low Maintenance: These machines are designed for durability and low maintenance. Regular cleaning and blade sharpening are typically the main upkeep requirements.\n\n• Time-Saving: Grass cutting machines can significantly reduce the time it takes to manicure your lawn, allowing you to enjoy your outdoor space more.\n\n• Enhanced Features: Some advanced models offer features like adjustable cutting heights, mulching capabilities, and self-propelled options for added convenience.\n\n• Environmentally Friendly: Electric grass cutters are eco-friendly, producing fewer emissions and less noise compared to gas-powered alternatives.\n\n• Safety First: Always follow safety guidelines when using grass cutting machines, including wearing appropriate protective gear and keeping children and pets at a safe distance.\n\n• Invest in a grass cutting machine today to achieve a well-maintained lawn effortlessly. Whether you have a small yard or a sprawling landscape, there's a machine to suit your needs. Enjoy the benefits of a neatly trimmed lawn without the hassle of manual labor.",
   "category": {
-    "$oid": "5f15d5b7cb4a6642bddc0fe8"
+  "$oid": "5f15d5b7cb4a6642bddc0fe8"
   },
   "countInStock": 5,
   "__v": 0
