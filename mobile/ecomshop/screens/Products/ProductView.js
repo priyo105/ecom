@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, ActivityIndicator, Text, FlatList, SafeAreaView ,RefreshControl} from "react-native"
+import { View, StyleSheet, ActivityIndicator, Text, FlatList, SafeAreaView, RefreshControl } from "react-native"
 import data from "../../assets/products.json"
 import categoryData from "../../assets/categories.json"
 import ProductItem from "./ProductItem";
@@ -18,13 +18,13 @@ export default ProductView = () => {
     const [categoryPressed, setCategoryPressed] = useState(false);
     const [productFilteredByCategory, setProductFilteredByCategory] = useState([]);
     const [refreshing, setRefreshing] = React.useState(false);
-  
-     //on swipe up refresh 
+
+    //on swipe up refresh 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         setTimeout(() => {
             setRefreshing(false);
-                setCategoryPressed(false);  //we are using this state to Display Categroical product in the flatList
+            setCategoryPressed(false);  //we are using this state to Display Categroical product in the flatList
         }, 2000);
     }, []);
 
@@ -68,15 +68,16 @@ export default ProductView = () => {
                 </View>
 
                 {focus == false ? (<View >
-                   
-                    <Banner />  
-                   
+
+                    <Banner />
+
                     <CategroiesHorizontal
-                                 data={categories}
-                                 onPress={(id) => {
-                                                setCategoryPressed(true);
-                                                const filteredData = products.filter(item => item.category.$oid === id);
-                                                setProductFilteredByCategory(filteredData);}} />
+                        data={categories}
+                        onPress={(id) => {
+                            setCategoryPressed(true);
+                            const filteredData = products.filter(item => item.category.$oid === id);
+                            setProductFilteredByCategory(filteredData);
+                        }} />
 
                 </View>) : <View />}
 
@@ -87,14 +88,12 @@ export default ProductView = () => {
                         <FilteredProductView productFilter={productFilter} />
                     </View>
                 ) : (
-
                     <FlatList
                         data={categoryPressed ? productFilteredByCategory : products}
                         numColumns={2}
                         renderItem={({ item }) => <ProductItem key={item.name} product={item} />}
                         keyExtractor={item => item.name} />
                 )}
-
 
             </SafeAreaView>
         </ScrollView>

@@ -1,12 +1,17 @@
 import { View, Text, Image, StyleSheet, ScrollView, Touchable, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React,{useState} from 'react'
 import InputSpinner from 'react-native-input-spinner';
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {connect} from "react-redux"
+import * as actions from '../../Redux/Actions/CartActions'
+import addToCart from '../cart/AddToCart';
 
-export default function ProductDetailsView({ route }) {
-    console.log(route.params)
-    const product = route.params.product;
+
+ function ProductDetailsView(props) {
+    console.log(props.route.params)
+    const [qunatity,setQuantity]=useState();
+    const product = props.route.params.product;
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -47,7 +52,7 @@ export default function ProductDetailsView({ route }) {
 
                     <InputSpinner
                         max={100}
-                        min={0}
+                        min={1}
                         step={1}
                         height={50}
                         width={160}
@@ -56,10 +61,19 @@ export default function ProductDetailsView({ route }) {
                         skin='square'
                         value={0}
                         onChange={(num) => {
+                            setQuantity(num);
                             console.log(num);
                         }} />
 
-                    <TouchableOpacity style={{flex:1,flexDirection:'row', backgroundColor: 'navy', alignItems: 'center', alignContent: 'center', marginHorizontal: 30, height: 50, width: 120, borderRadius: 10 }}>
+                    <TouchableOpacity 
+                                onPress={()=>{  
+                                    const productToAdd={...props,product}
+                                    addToCart(productToAdd,qunatity,'')   
+                                    // product.quantity=qunatity;
+                                    // props.addItemToCart(product)
+                                
+                                }}
+                                style={{flex:1,flexDirection:'row', backgroundColor: 'navy', alignItems: 'center', alignContent: 'center', marginHorizontal: 30, height: 50, width: 120, borderRadius: 10 }}>
                           <Icon  color='white' size={20} margin={10} name="cart-plus" ></Icon>
                           <Text style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', marginTop: 0 }}>Add to Cart</Text>
                     </TouchableOpacity>
@@ -69,6 +83,24 @@ export default function ProductDetailsView({ route }) {
         </View>
     )
 }
+
+
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        addItemToCart: (product) => dispatch(actions.addToCart({ isAddedToCart: true, product })),
+        updateCart: (product, qty) => dispatch(actions.updateQuantity({ product, quantity: qty }))
+
+    }
+}
+
+
+const mapStateToProps = (state) => {
+    const { cartItems } = state;
+    return {
+        cartItems: cartItems
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(ProductDetailsView);
 
 const styles = StyleSheet.create({
     container: {

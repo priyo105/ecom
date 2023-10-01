@@ -12,6 +12,7 @@ import { NativeBaseProvider } from 'native-base';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Toast from 'react-native-toast-message';
 
 const Stack = createNativeStackNavigator();
 
@@ -100,6 +101,8 @@ function App() {
 
       </NativeBaseProvider>
     </NavigationContainer>
+    <Toast />
+
    </Provider>
   );
 }
