@@ -49,7 +49,6 @@ import addToCart from '../cart/AddToCart';
             <View style={styles.bottomView}>
                 <View style={{ flex: 1, flexDirection: 'row', height: 40, justifyContent: 'center', alignItems: 'center' }}>
 
-
                     <InputSpinner
                         max={100}
                         min={1}
@@ -87,9 +86,8 @@ import addToCart from '../cart/AddToCart';
 
 const mapDispatchToProps = (dispatch) =>{
     return {
-        addItemToCart: (product) => dispatch(actions.addToCart({ isAddedToCart: true, product })),
+        addItemToCart: (product) => dispatch(actions.addToCart({  product })),
         updateCart: (product, qty) => dispatch(actions.updateQuantity({ product, quantity: qty }))
-
     }
 }
 
@@ -100,6 +98,7 @@ const mapStateToProps = (state) => {
         cartItems: cartItems
     }
 }
+
 export default connect(mapStateToProps,mapDispatchToProps)(ProductDetailsView);
 
 const styles = StyleSheet.create({

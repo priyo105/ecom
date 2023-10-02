@@ -19,7 +19,7 @@
   "_id": {
     "$oid": "5f15d92ee520d44421ed8e9b"
   },
-  "image": "",
+  "image": "https://images.unsplash.com/photo-1602023039928-7af5a2f000fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
   "brand": "IKEA",
   "price": 350.9,
   "rating": 5,

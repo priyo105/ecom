@@ -1,4 +1,3 @@
-import Toast from 'react-native-toast-message';
 import { showToastSuccess } from '../../Commons/Toast';
 
 export default function addToCart(product,quantity,comingFrom){
@@ -26,14 +25,11 @@ export default function addToCart(product,quantity,comingFrom){
         product.product.quantity = quantity
         product.addItemToCart(product.product); //addItemToCart is inside the product props as it was map to props by Redux
     } else {
-
         //update the quantity of the added product
         if(comingFrom=='productDetails'){
-            product.updateCart(product,quantity) //if coming from product details page
-            
+            product.updateCart(product,quantity) //if coming from product details page    
         }else{
             product.updateCart(product,previousQuantity+quantity)
-
         }
         showToastSuccess(product.product.name,'Quantity Increased to '+(previousQuantity+1));
 

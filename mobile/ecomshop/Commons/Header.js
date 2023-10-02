@@ -10,7 +10,6 @@ const Header=()=>{
               resizeMode="contain"
               style={{height:30}}
               >
-
         </Image>
 
         <Text style={styles.title}>Ecom Shop</Text>

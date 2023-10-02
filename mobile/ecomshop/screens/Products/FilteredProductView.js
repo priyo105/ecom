@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { Divider, Text, Image } from "native-base"
+import {  Text, Image } from "native-base"
 import { useNavigation } from '@react-navigation/native';
 
 const FilteredProductView = (productFilter) => {
@@ -30,42 +30,37 @@ const FilteredProductView = (productFilter) => {
 
 const SearchItemView = (item) => {
   console.log("I:::" + JSON.stringify(item))
-  const navigation=useNavigation()
+  const navigation = useNavigation()
   return (
 
-    <TouchableOpacity onPress={()=>{navigation.navigate('productDetails',{
-      product:item.item
-    })}}>
-    <View style={{ flexDirection: 'row', marginLeft: 20 }}>
+    <TouchableOpacity onPress={() => {
+      navigation.navigate('productDetails', {
+        product: item.item
+      })
+    }}>
+      <View style={{ flexDirection: 'row', marginLeft: 20 }}>
 
-      <View style={{ flex: .2, height: 80 }}>
-        <Image height={70} width={70} resizeMode='contain' source={{ uri: item.item.image ? item.item.image : 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80' }} />
+        <View style={{ flex: .2, height: 80 }}>
+          <Image height={70} width={70} resizeMode='contain' source={{ uri: item.item.image ? item.item.image : 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80' }} />
+
+        </View>
+
+        <View style={{ flex: .6 }}>
+          <Text style={styles.text}>{item.item.name}</Text>
+          <Text style={styles.description} >{item.item.description}</Text>
+        </View>
+
+        <View style={{ flex: .2 }}>
+
+          <Text style={styles.priceText}> £ {item.item.price}</Text>
+
+        </View>
 
       </View>
-
-      <View style={{ flex: .6 }}>
-        <Text style={styles.text}>{item.item.name}</Text>
-        <Text style={styles.description} >{item.item.description}</Text>
-      </View>
-
-      <View style={{ flex: .2 }}>
-
-        <Text style={styles.priceText}> £ {item.item.price}</Text>
-
-      </View>
-
-    </View>
     </TouchableOpacity>
   )
 
 }
-
-
-
-
-
-
-
 export default FilteredProductView
 
 const styles = StyleSheet.create({

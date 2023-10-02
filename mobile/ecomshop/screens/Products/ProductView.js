@@ -81,7 +81,6 @@ export default ProductView = () => {
 
                 </View>) : <View />}
 
-
                 {/* // When Focus is True It will render the search ProductView , Other wise regular Product List View  */}
                 {focus == true ? (
                     <View>

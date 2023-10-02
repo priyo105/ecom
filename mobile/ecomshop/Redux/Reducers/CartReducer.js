@@ -10,23 +10,23 @@ const cartItems = (state = [], action) => {
         case ADD_TO_CART:
             return [...state, action.payload]
         case REMOVE_FROM_CART:
-            return state.filter(cartItem => cartItem !== action.payload)
+            return state.filter(cartItem => cartItem.product.name !== action.payload.product.name);
+
         case CLEAR_CART:
             return state = []
         case UPDATE_QUANTITY:
+            // console.log('reducerstate'+JSON.stringify(state));
+            // console.log('payloadqty',action.payload)
+            updateditems = state.map(item => {
+                if (item.product.name === action.payload.product.product.name) {
+                    item.product.quantity = action.payload.quantity
+                }
+                return item;
+            })
+            // console.log("ip"+JSON.stringify(updateditems))
 
-                // console.log('reducerstate'+JSON.stringify(state));
-                // console.log('payloadqty',action.payload)
-             updateditems= state.map(item=>{
-                    if(item.product.name===action.payload.product.product.name){
-                        item.product.quantity=action.payload.quantity         
-                    }1
-                    return item;
-                })
-                // console.log("ip"+JSON.stringify(updateditems))
-            
-             return updateditems
-               
+            return updateditems
+
     }
     return state;
 }

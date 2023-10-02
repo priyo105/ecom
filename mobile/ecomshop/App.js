@@ -3,7 +3,10 @@ import React from 'react';
 import {
   SafeAreaView,
   StyleSheet,
-  Image
+  Image,
+  View,
+  Text,
+  LogBox
 } from 'react-native';
 
 import ProductView from './screens/Products/ProductView';
@@ -25,8 +28,12 @@ const Tab = createMaterialBottomTabNavigator();
 import { Provider } from 'react-redux';
 import store from './Redux/store';
 import Cart from './screens/cart/Cart';
-import Checkout from './screens/cart/Checkout';
+import Checkout from './screens/checkout/Checkout';
+import CartIconNumber from './screens/cart/CartIconNumber';
 // Redux
+
+
+import CheckOutNavigator from './navigators/CheckOutNavigator';
 
 function HomeStack() {
   return (
@@ -48,7 +55,7 @@ function CartStack() {
   );
 }
 
-// LogBox.ignoreAllLogs(true)
+ LogBox.ignoreAllLogs(true)
 function App() {
 
   return (
@@ -85,14 +92,25 @@ function App() {
          <Tab.Screen name="Cart" options={{
             tabBarLabel: 'Cart',
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="cart" color={'black'} size={22} /> ),}} 
+              <View style={{flexDirection:'row'}}>
+              <MaterialCommunityIcons name="cart" color={'black'} size={22} />            
+ 
+                <CartIconNumber />
+               </View>
+
+              
+              
+              ),}} 
             
             component={CartStack} />
 
       <Tab.Screen name="Account" options={{
             tabBarLabel: 'account',
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="account" color={'black'} size={22} /> ),}} 
+                  <MaterialCommunityIcons name="account" color={'black'} size={22} /> 
+              
+            
+              ),}} 
             
             component={ProductView} />
 

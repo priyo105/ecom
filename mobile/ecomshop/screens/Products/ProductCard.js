@@ -39,7 +39,6 @@ const ProductCard = (product) => {
                     </TouchableOpacity>
                 </View>
             </View>
-
         </View>
     );
 }
@@ -47,7 +46,7 @@ const ProductCard = (product) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addItemToCart: (product) => dispatch(actions.addToCart({ isAddedToCart: true, product })),
+        addItemToCart: (product) => dispatch(actions.addToCart({ product })),
         updateCart: (product, qty) => dispatch(actions.updateQuantity({ product, quantity: qty }))
     }
 }
@@ -75,12 +74,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     image: {
-        width: 150,
-        height: 150,
+
+        width: width/2-40,
+        height: 130,
         resizeMode: "contain",
         backgroundColor: 'transparent',
         position: 'absolute',
-        top: -65
+        top: -40
     },
     card: {
         marginTop: 10,
