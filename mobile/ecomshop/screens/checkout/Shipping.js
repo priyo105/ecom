@@ -28,7 +28,20 @@ export default function Shipping(props) {
         setPhoneNoError(true)
     }
         else {
-            props.navigation.navigate('payment')
+
+          //send the details to next page
+
+            let shippingDetails={
+                "shippingAddress":shippingAddress,
+                "shippingAddress2":shippingaddress2,
+                "postcode":postCode,
+                "city":city,
+                "phone":phoneNo
+            }
+
+            props.navigation.navigate('payment',{
+                shippingDetails:shippingDetails
+            })
         }
     }
 

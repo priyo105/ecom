@@ -2,14 +2,14 @@
   "_id": {
     "$oid": "5f15d8852a025143f9593a7c"
   },
-  "image": "https://www.transparentpng.com/thumb/fifa-2018-transparent/nVt9uN-fifa-2018-logo-transparent.png",
+  "image": "https://images.unsplash.com/photo-1635048424329-a9bfb146d7aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1931&q=80",
   "brand": "PS3",
   "price": 250,
   "rating": 4,
   "numReviews": 0,
   "isFeatured": true,
-  "name": "FIFA 20",
-  "description": "The most hard FIFA ever",
+  "name": "Ps5",
+  "description": "Latest Playstation in the gaming world",
   "category": {
     "$oid": "5f15d5cdcb4a6642bddc0f99"
   },
